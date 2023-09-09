@@ -21,7 +21,7 @@ const collections = [
     name: "Focus Collection",
     href: "#",
     imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/home-page-01-collection-03.jpg",
+      "https://i.etsystatic.com/28964250/r/il/0177dc/4854627620/il_1588xN.4854627620_bm0s.jpg",
     imageAlt:
       "Person placing task list card into walnut card holder next to felt carrying case on leather desk pad.",
     description:

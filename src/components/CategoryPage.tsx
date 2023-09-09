@@ -43,7 +43,7 @@ const navigation = {
           name: "New Arrivals",
           href: "#",
           imageSrc:
-            "https://tailwindui.com/img/ecommerce-images/mega-menu-category-01.jpg",
+            "https://i.etsystatic.com/28964250/r/il/763161/4058588185/il_1588xN.4058588185_tpbc.jpg",
           imageAlt:
             "Models sitting back to back, wearing Basic Tee in black and bone.",
         },
