@@ -36,10 +36,6 @@ const categories = [
   },
 ];
 
-function classNames(...classes: any[]) {
-  return classes.filter(Boolean).join(" ");
-}
-
 export default function StoreFront() {
   return (
     <div className="bg-white">
