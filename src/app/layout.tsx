@@ -3,7 +3,7 @@ import Header from "~/components/Header";
 
 export const metadata = {
   title: "Crafts & Busy Gifts",
-  description: "Crafts & Busy Gifts",
+  description: "Crafts & Busy Gifts"
 };
 
 export default function RootLayout({

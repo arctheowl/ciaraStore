@@ -1,5 +1,14 @@
 "use client";
-import { Transition, Dialog, Tab, Popover } from "@headlessui/react";
+import {
+  Transition,
+  Dialog,
+  Tab,
+  Popover,
+  TabPanel,
+  TabGroup,
+  TabList,
+  TabPanels,
+} from "@headlessui/react";
 import {
   XMarkIcon,
   ChevronDownIcon,
@@ -13,6 +22,10 @@ import DropDownMenu from "./DropDownMenu";
 const inter = Inter({ subsets: ["latin"] });
 const navigation = {
   categories: [
+    {
+      name: "Shop All",
+      link: "/shopAll",
+    },
     {
       name: "Busy Boards",
       featured: [
@@ -80,10 +93,10 @@ const navigation = {
       ],
     },
     {
-      name: "Christmas",
+      name: "Seasonal",
       featured: [
         {
-          name: "New Arrivals",
+          name: "Christmas",
           href: "#",
           imageSrc:
             "https://tailwindui.com/img/ecommerce-images/mega-menu-01-men-category-01.jpg",
@@ -91,63 +104,11 @@ const navigation = {
             "Hats and sweaters on wood shelves next to various colors of t-shirts on hangers.",
         },
         {
-          name: "Basic Tees",
+          name: "Easter",
           href: "#",
           imageSrc:
             "https://tailwindui.com/img/ecommerce-images/mega-menu-01-men-category-02.jpg",
           imageAlt: "Model wearing light heather gray t-shirt.",
-        },
-        {
-          name: "Accessories",
-          href: "#",
-          imageSrc:
-            "https://tailwindui.com/img/ecommerce-images/mega-menu-01-men-category-03.jpg",
-          imageAlt:
-            "Grey 6-panel baseball hat with black brim, black mountain graphic on front, and light heather gray body.",
-        },
-        {
-          name: "Carry",
-          href: "#",
-          imageSrc:
-            "https://tailwindui.com/img/ecommerce-images/mega-menu-01-men-category-04.jpg",
-          imageAlt:
-            "Model putting folded cash into slim card holder olive leather wallet with hand stitching.",
-        },
-      ],
-    },
-    {
-      name: "Bits",
-      featured: [
-        {
-          name: "New Arrivals",
-          href: "#",
-          imageSrc:
-            "https://tailwindui.com/img/ecommerce-images/mega-menu-01-men-category-01.jpg",
-          imageAlt:
-            "Hats and sweaters on wood shelves next to various colors of t-shirts on hangers.",
-        },
-        {
-          name: "Basic Tees",
-          href: "#",
-          imageSrc:
-            "https://tailwindui.com/img/ecommerce-images/mega-menu-01-men-category-02.jpg",
-          imageAlt: "Model wearing light heather gray t-shirt.",
-        },
-        {
-          name: "Accessories",
-          href: "#",
-          imageSrc:
-            "https://tailwindui.com/img/ecommerce-images/mega-menu-01-men-category-03.jpg",
-          imageAlt:
-            "Grey 6-panel baseball hat with black brim, black mountain graphic on front, and light heather gray body.",
-        },
-        {
-          name: "Carry",
-          href: "#",
-          imageSrc:
-            "https://tailwindui.com/img/ecommerce-images/mega-menu-01-men-category-04.jpg",
-          imageAlt:
-            "Model putting folded cash into slim card holder olive leather wallet with hand stitching.",
         },
       ],
     },
@@ -207,9 +168,9 @@ const Header = () => {
                 </div>
 
                 {/* Links */}
-                <Tab.Group as="div" className="mt-2">
+                <TabGroup as="div" className="mt-2">
                   <div className="border-b border-gray-200">
-                    <Tab.List className="-mb-px flex space-x-8 px-4">
+                    <TabList className="-mb-px flex space-x-8 px-4">
                       {navigation.categories.map((category) => (
                         <Tab
                           key={category.name}
@@ -222,50 +183,68 @@ const Header = () => {
                             )
                           }
                         >
-                          {category.name}
+                          {category.link ? (
+                            <a href={category.link}>{category.name}</a>
+                          ) : (
+                            <>{category.name}</>
+                          )}
                         </Tab>
                       ))}
-                    </Tab.List>
+                    </TabList>
                   </div>
-                  <Tab.Panels as={Fragment}>
+                  <TabPanels as={Fragment}>
                     {navigation.categories.map((category) => (
-                      <Tab.Panel
+                      <TabPanel
                         key={category.name}
                         className="space-y-12 px-4 py-6"
                       >
-                        <div className="grid grid-cols-2 gap-x-4 gap-y-10">
-                          {category.featured.map((item) => (
-                            <div key={item.name} className="group relative">
-                              <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-md bg-gray-100 group-hover:opacity-75">
-                                <img
-                                  src={item.imageSrc}
-                                  alt={item.imageAlt}
-                                  className="object-cover object-center"
-                                />
-                              </div>
-                              <a
-                                href={item.href}
-                                className="mt-6 block text-sm font-medium text-gray-900"
-                              >
-                                <span
-                                  className="absolute inset-0 z-10"
-                                  aria-hidden="true"
-                                />
-                                {item.name}
-                              </a>
-                              <p
-                                aria-hidden="true"
-                                className="mt-1 text-sm text-gray-500"
-                              >
-                                Shop now
-                              </p>
-                            </div>
-                          ))}
-                        </div>
-                      </Tab.Panel>
+                        {category.link ? (
+                          <a
+                            href={category.link}
+                            className="text-sm font-medium text-gray-900"
+                          >
+                            {category.name}
+                          </a>
+                        ) : (
+                          <div className="grid grid-cols-2 gap-x-4 gap-y-10">
+                            {category.featured
+                              ? category.featured.map((item) => (
+                                  <div
+                                    key={item.name}
+                                    className="group relative"
+                                  >
+                                    <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-md bg-gray-100 group-hover:opacity-75">
+                                      <img
+                                        src={item.imageSrc}
+                                        alt={item.imageAlt}
+                                        className="object-cover object-center"
+                                      />
+                                    </div>
+                                    <a
+                                      href={item.href}
+                                      className="mt-6 block text-sm font-medium text-gray-900"
+                                    >
+                                      <span
+                                        className="absolute inset-0 z-10"
+                                        aria-hidden="true"
+                                      />
+                                      {item.name}
+                                    </a>
+                                    <p
+                                      aria-hidden="true"
+                                      className="mt-1 text-sm text-gray-500"
+                                    >
+                                      Shop now
+                                    </p>
+                                  </div>
+                                ))
+                              : null}
+                          </div>
+                        )}
+                      </TabPanel>
                     ))}
-                  </Tab.Panels>
-                </Tab.Group>
+                  </TabPanels>
+                </TabGroup>
 
                 {/* <div className="space-y-6 border-t border-gray-200 px-4 py-6">
             {navigation.pages.map((page) => (
@@ -411,36 +390,38 @@ const Header = () => {
                                     <div className="relative bg-white">
                                       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                                         <div className="grid grid-cols-4 gap-x-8 gap-y-10 py-16">
-                                          {category.featured.map((item) => (
-                                            <div
-                                              key={item.name}
-                                              className="group relative"
-                                            >
-                                              <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-md bg-gray-100 group-hover:opacity-75">
-                                                <img
-                                                  src={item.imageSrc}
-                                                  alt={item.imageAlt}
-                                                  className="object-cover object-center"
-                                                />
-                                              </div>
-                                              <a
-                                                href={item.href}
-                                                className="mt-4 block font-medium text-gray-900"
-                                              >
-                                                <span
-                                                  className="absolute inset-0 z-10"
-                                                  aria-hidden="true"
-                                                />
-                                                {item.name}
-                                              </a>
-                                              <p
-                                                aria-hidden="true"
-                                                className="mt-1"
-                                              >
-                                                Shop now
-                                              </p>
-                                            </div>
-                                          ))}
+                                          {category.featured
+                                            ? category.featured.map((item) => (
+                                                <div
+                                                  key={item.name}
+                                                  className="group relative"
+                                                >
+                                                  <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-md bg-gray-100 group-hover:opacity-75">
+                                                    <img
+                                                      src={item.imageSrc}
+                                                      alt={item.imageAlt}
+                                                      className="object-cover object-center"
+                                                    />
+                                                  </div>
+                                                  <a
+                                                    href={item.href}
+                                                    className="mt-4 block font-medium text-gray-900"
+                                                  >
+                                                    <span
+                                                      className="absolute inset-0 z-10"
+                                                      aria-hidden="true"
+                                                    />
+                                                    {item.name}
+                                                  </a>
+                                                  <p
+                                                    aria-hidden="true"
+                                                    className="mt-1"
+                                                  >
+                                                    Shop now
+                                                  </p>
+                                                </div>
+                                              ))
+                                            : null}
                                         </div>
                                       </div>
                                     </div>
